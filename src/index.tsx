@@ -1,13 +1,24 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import { ApolloProvider } from "react-apollo"
+import ApolloClient from "apollo-client"
+import { InMemoryCache } from "apollo-cache-inmemory"
+import { createHttpLink } from "apollo-link-http"
 import "./index.scss"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 
+const client = new ApolloClient({
+  link: createHttpLink({ uri: "https://countries.trevorblades.com" }),
+  cache: new InMemoryCache(),
+})
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ApolloProvider>,
   document.getElementById("root")
 )
 
