@@ -7,17 +7,21 @@ import { createHttpLink } from "apollo-link-http"
 import "./index.scss"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
+import { BrowserRouter } from "react-router-dom"
 
 const client = new ApolloClient({
-  link: createHttpLink({ uri: "https://countries.trevorblades.com" }),
+  // uri는 서버 주소 넣으면 될 듯.
+  link: createHttpLink({ uri: "http://localhost:8000/graphql" }),
   cache: new InMemoryCache(),
 })
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
   </ApolloProvider>,
   document.getElementById("root")
 )
